@@ -1,0 +1,98 @@
+{
+  "name": "electron_vue3_vite",
+  "version": "0.0.1",
+  "main": "dist/main/_.js",
+  "author": "jen<1051931999@qq.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently -n=vue,ele -c=green,blue \"npm run dev:vue\" \"npm run dev:ele\"",
+    "dev:vue": "vite",
+    "dev:ele": "node -r ts-node/register script/build --env=development --watch",
+    "build:vue": "vite build",
+    "build:ele": "node -r ts-node/register script/build --env=production",
+    "build": "rm -rf dist && npm run build:vue && npm run build:ele && electron-builder"
+  },
+  "build": {
+    "appId": "1051931999@qq.com",
+    "files": [
+      "!node_modules",
+      "dist/**"
+    ],
+    "mac": {
+      "icon": "script/icons/icon.icns",
+      "artifactName": "${productName}_setup_${version}.${ext}",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "icon": "script/icons/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}_setup_${version}.${ext}"
+    },
+    "linux": {
+      "icon": "build/icons"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "runAfterFinish": false,
+      "deleteAppDataOnUninstall": true,
+      "shortcutName": "electron vue"
+    },
+    "extraResources": [
+      "./extraResources/**"
+    ]
+  },
+  "dependencies": {
+    "electron-is-dev": "^1.2.0",
+    "vue": "^3.0.5",
+    "vue-router": "^4.0.2",
+    "vuex": "^4.0.0-rc.2"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^3.1.1",
+    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@types/minimist": "^1.2.1",
+    "@types/wait-on": "^5.2.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "chalk": "^4.1.0",
+    "concurrently": "^5.3.0",
+    "electron": "9.1.0",
+    "electron-builder": "^22.8.0",
+    "electron-store": "^6.0.0",
+    "eslint": "^7.17.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-vue": "^7.4.1",
+    "minimist": "^1.2.5",
+    "ora": "^5.0.0",
+    "rollup-plugin-copy": "^3.3.0",
+    "rollup-plugin-esbuild": "^2.4.2",
+    "sass": "^1.32.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.0.3",
+    "vite": "^1.0.0-rc.13",
+    "wait-on": "^5.2.0"
+  },
+  "keywords": [
+    "vite",
+    "electron",
+    "vue3",
+    "rollup"
+  ]
+}
