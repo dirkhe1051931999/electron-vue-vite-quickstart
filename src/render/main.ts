@@ -1,0 +1,14 @@
+import { createApp } from 'vue';
+import App from './App.vue';
+import store from './store';
+import { electronStore } from './utils/electron-store';
+import router from './router';
+const isDev = require('electron-is-dev');
+// process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
+console.log('env is dev?', isDev);
+electronStore.set('name', 'i am jen');
+console.log('electronStore', electronStore.get('name'));
+const app = createApp(App as any);
+app.use(router);
+app.use(store);
+app.mount('#app');
